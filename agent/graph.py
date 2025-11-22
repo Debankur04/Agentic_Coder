@@ -1,10 +1,8 @@
 import os
 from dotenv import load_dotenv
-
 from langchain_groq import ChatGroq
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import create_react_agent
-
 from prompts import planner_prompt, architect_prompt, coder_system_prompt
 from states import Plan, TaskPlan, CoderState
 from tools import write_file, read_file, list_files, get_current_directory
@@ -148,9 +146,10 @@ agent = graph.compile()
 # ---------------------------------------------------------------------
 if __name__ == "__main__":
     print("Starting AI Agent Coder...")
+    prompt = input('enter your prompt')
     result = agent.invoke(
-        {"user_prompt": "Build a colourful modern todo app in html css and js"},
-        {"recursion_limit": 100}
+        {"user_prompt": prompt},
+        {"recursion_limit": 10}
     )
     print("\n" + "="*50)
     print("FINAL STATE:")
